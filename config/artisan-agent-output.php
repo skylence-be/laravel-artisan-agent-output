@@ -12,7 +12,7 @@ return [
     | instead of cleaned text. When false, all commands get cleaned text only.
     |
     */
-    'json' => true,
+    'json' => env('ARTISAN_AGENT_OUTPUT_JSON', true),
 
     /*
     |--------------------------------------------------------------------------
