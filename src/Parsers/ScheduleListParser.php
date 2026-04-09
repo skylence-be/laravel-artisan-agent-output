@@ -18,7 +18,8 @@ final class ScheduleListParser implements CommandParser
         /** @var Schedule $schedule */
         $schedule = $app->make(Schedule::class);
         $events = $schedule->events();
-        $timezone = config('app.timezone', 'UTC');
+        $configTimezone = config('app.timezone', 'UTC');
+        $timezone = is_string($configTimezone) ? $configTimezone : 'UTC';
 
         $tasks = [];
         foreach ($events as $event) {

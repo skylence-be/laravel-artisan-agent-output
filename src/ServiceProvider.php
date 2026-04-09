@@ -131,6 +131,6 @@ final class ServiceProvider extends LaravelServiceProvider
             return false;
         }
 
-        return ! in_array($command, config('artisan-agent-output.exclude', []), true);
+        return ! in_array($command, (array) config('artisan-agent-output.exclude', []), true);
     }
 }
