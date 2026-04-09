@@ -10,6 +10,16 @@ use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Skylence\ArtisanAgentOutput\Parsers\AboutParser;
+use Skylence\ArtisanAgentOutput\Parsers\ConfigShowParser;
+use Skylence\ArtisanAgentOutput\Parsers\DbShowParser;
+use Skylence\ArtisanAgentOutput\Parsers\DbTableParser;
+use Skylence\ArtisanAgentOutput\Parsers\EventListParser;
+use Skylence\ArtisanAgentOutput\Parsers\MigrateStatusParser;
+use Skylence\ArtisanAgentOutput\Parsers\ModelShowParser;
+use Skylence\ArtisanAgentOutput\Parsers\QueueFailedParser;
+use Skylence\ArtisanAgentOutput\Parsers\RouteListParser;
+use Skylence\ArtisanAgentOutput\Parsers\ScheduleListParser;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class ServiceProvider extends LaravelServiceProvider
@@ -47,6 +57,18 @@ final class ServiceProvider extends LaravelServiceProvider
 
         /** @var Dispatcher $events */
         $events = $this->app->make(Dispatcher::class);
+
+        // Register core parsers
+        $registry->register('about', AboutParser::class);
+        $registry->register('migrate:status', MigrateStatusParser::class);
+        $registry->register('route:list', RouteListParser::class);
+        $registry->register('db:show', DbShowParser::class);
+        $registry->register('db:table', DbTableParser::class);
+        $registry->register('schedule:list', ScheduleListParser::class);
+        $registry->register('model:show', ModelShowParser::class);
+        $registry->register('queue:failed', QueueFailedParser::class);
+        $registry->register('event:list', EventListParser::class);
+        $registry->register('config:show', ConfigShowParser::class);
 
         $events->listen(CommandStarting::class, function (CommandStarting $event) use ($registry): void {
             $event->output->setDecorated(false);
