@@ -71,58 +71,58 @@ All examples captured with `skylence/laravel-artisan-agent-output` installed. JS
 ### Cleaned text mode
 
 ```
- Environment ..
- Application Name .. Laravel
- Laravel Version .. 13.2.0
- PHP Version .. 8.4.19
- Composer Version .. 2.9.5
- Environment .. local
- Debug Mode .. ENABLED
- URL .. btb-filament5-demo.test
- Maintenance Mode .. OFF
- Timezone .. Europe/Brussels
- Locale .. en
+ Environment
+ Application Name  Laravel
+ Laravel Version  13.2.0
+ PHP Version  8.4.19
+ Composer Version  2.9.5
+ Environment  local
+ Debug Mode  ENABLED
+ URL  btb-filament5-demo.test
+ Maintenance Mode  OFF
+ Timezone  Europe/Brussels
+ Locale  en
 
- Cache ..
- Config .. NOT CACHED
- Events .. NOT CACHED
- Routes .. NOT CACHED
- Views .. NOT CACHED
+ Cache
+ Config  NOT CACHED
+ Events  NOT CACHED
+ Routes  NOT CACHED
+ Views  NOT CACHED
 
- Drivers ..
- Broadcasting .. log
- Cache .. redis
- Database .. pgsql
- Logs .. stack / single
- Mail .. log
- Queue .. redis
- Scout .. collection
- Session .. redis
+ Drivers
+ Broadcasting  log
+ Cache  redis
+ Database  pgsql
+ Logs  stack / single
+ Mail  log
+ Queue  redis
+ Scout  collection
+ Session  redis
 
- Storage ..
- public/storage .. NOT LINKED
+ Storage
+ public/storage  NOT LINKED
 
- Shield ..
- Auth Provider .. Skylence\Erp\Models\System\Admin|CONFIGURED
- Tenancy .. DISABLED
- Tenant Model ..
- Translations .. NOT PUBLISHED
- Version .. 4.2.0
- Views .. NOT PUBLISHED
+ Shield
+ Auth Provider  Skylence\Erp\Models\System\Admin|CONFIGURED
+ Tenancy  DISABLED
+ Tenant Model
+ Translations  NOT PUBLISHED
+ Version  4.2.0
+ Views  NOT PUBLISHED
 
- Filament ..
- Blade Icons .. NOT CACHED
+ Filament
+ Blade Icons  NOT CACHED
  Packages  filament, forms, notifications, support, tables, actions, infolists, schemas, widgets
- Panel Components .. NOT CACHED
- Version .. v5.4.3
- Views .. NOT PUBLISHED
+ Panel Components  NOT CACHED
+ Version  v5.4.3
+ Views  NOT PUBLISHED
 
- Livewire ..
- Livewire .. v4.2.3
+ Livewire
+ Livewire  v4.2.3
 
- Spatie Permissions ..
- Features Enabled .. Default
- Version .. 7.2.4
+ Spatie Permissions
+ Features Enabled  Default
+ Version  7.2.4
 ```
 
 ---
@@ -151,12 +151,13 @@ All examples captured with `skylence/laravel-artisan-agent-output` installed. JS
 ### Cleaned text mode
 
 ```
- Migration name .. Batch / Status
- 0001_01_01_000000_create_users_table .. [1] Ran
- 0001_01_01_000001_create_cache_table .. [1] Ran
- 0001_01_01_000002_create_jobs_table .. [1] Ran
- 2024_01_01_000000_add_erp_columns_to_users_table .. [1] Ran
- 2024_01_01_000001_create_dayrate_products_table .. [1] Ran
+ Migration name  Batch / Status
+ 0001_01_01_000000_create_users_table  [1] Ran
+ 0001_01_01_000001_create_cache_table  [1] Ran
+ 0001_01_01_000002_create_jobs_table  [1] Ran
+ 2024_01_01_000000_add_erp_columns_to_users_table  [1] Ran
+ 2024_01_01_000001_create_dayrate_products_table  [1] Ran
+ 2024_01_01_000002_create_exchange_rates_table  [1] Ran
 ```
 
 *(96 migrations total — truncated for brevity)*
@@ -225,13 +226,13 @@ All examples captured with `skylence/laravel-artisan-agent-output` installed. JS
 ### Cleaned text mode
 
 ```
-GET|HEAD / .. filament.app.pages.dashboard > Filament\Pages > Dashboard
- POST _boost/browser-logs boost.browser-logs > vendor/laravel/boost/src...
- GET|HEAD admin .. admin.home > routes/web.php:63
- GET|HEAD admin/fields custom-fields.index > Skylence\LaravelCustomFields ...
- GET|HEAD admin/reports .. admin.reports > routes/web.php:64
- GET|HEAD admin/reports/{type} .. admin.reports.show > routes/web.php:65
- GET|HEAD admin/settings .. admin.settings.index > routes/web.php:69
+ GET|HEAD / filament.app.pages.dashboard > Filament\Pages > Dashboard
+ POST _boost/browser-logs boost.browser-logs > vendor/laravel/boost/src
+ GET|HEAD admin admin.home > routes/web.php:63
+ GET|HEAD admin/fields custom-fields.index > Skylence\LaravelCustomFields
+ GET|HEAD admin/reports admin.reports > routes/web.php:64
+ GET|HEAD admin/reports/{type} admin.reports.show > routes/web.php:65
+ GET|HEAD admin/settings admin.settings.index > routes/web.php:69
  GET|HEAD admin/settings/billing admin.settings.billing > routes/web.php:71
 ```
 
@@ -265,21 +266,21 @@ GET|HEAD / .. filament.app.pages.dashboard > Filament\Pages > Dashboard
 ### Cleaned text mode
 
 ```
- PostgreSQL .. 18.0 (Laravel Herd)
- Connection .. pgsql
- Database .. btb_filament_demo
- Host .. 127.0.0.1
- Port .. 5432
- Username .. root
- URL ..
- Open Connections .. 9
- Tables .. 182
- Total Size .. 115.46 MB
+ PostgreSQL  18.0 (Laravel Herd)
+ Connection  pgsql
+ Database  btb_filament_demo
+ Host  127.0.0.1
+ Port  5432
+ Username  root
+ URL
+ Open Connections  9
+ Tables  182
+ Total Size  115.85 MB
 
- Schema / Table .. Size
- public / billing_recurring_contract_product .. 32.00 KB
- public / billing_recurring_contracts .. 40.00 KB
- public / bunkering_berths .. 16.00 KB
+ Schema / Table  Size
+ public / billing_recurring_contract_product  32.00 KB
+ public / billing_recurring_contracts  40.00 KB
+ public / bunkering_berths  16.00 KB
 ```
 
 *(182 tables total — truncated for brevity)*
@@ -314,23 +315,23 @@ GET|HEAD / .. filament.app.pages.dashboard > Filament\Pages > Dashboard
 ### Cleaned text mode
 
 ```
- public.users ..
- Columns .. 8
- Size .. 24.00 KB
+ public.users
+ Columns  8
+ Size  24.00 KB
 
- Column .. Type
- id int8, autoincrement .. nextval('users_id_seq'::regclass) bigint
- name varchar .. character varying(255)
- email varchar .. character varying(255)
- email_verified_at timestamp, nullable .. timestamp(0) without time zone
- password varchar .. character varying(255)
- remember_token varchar, nullable .. character varying(100)
- created_at timestamp, nullable .. timestamp(0) without time zone
- updated_at timestamp, nullable .. timestamp(0) without time zone
+ Column  Type
+ id int8, autoincrement  nextval('users_id_seq'::regclass) bigint
+ name varchar  character varying(255)
+ email varchar  character varying(255)
+ email_verified_at timestamp, nullable  timestamp(0) without time zone
+ password varchar  character varying(255)
+ remember_token varchar, nullable  character varying(100)
+ created_at timestamp, nullable  timestamp(0) without time zone
+ updated_at timestamp, nullable  timestamp(0) without time zone
 
- Index ..
- users_email_unique email .. btree, unique
- users_pkey id .. btree, primary
+ Index
+ users_email_unique email  btree, unique
+ users_pkey id  btree, primary
 ```
 
 ---
@@ -364,20 +365,20 @@ GET|HEAD / .. filament.app.pages.dashboard > Filament\Pages > Dashboard
 ### Cleaned text mode
 
 ```
- 0 1 * * *  php artisan backup:run --only-db .. Next Due: 11 hours from now
- 0 2 * * *  php artisan backup:clean .. Next Due: 12 hours from now
- 15 3 * * *  php artisan backup:monitor .. Next Due: 13 hours from now
- */5 * * * *  exact:refresh-tokens .. Next Due: 4 minutes from now
- 0 8 * * *  exact:monitor-refresh-tokens .. Next Due: 18 hours from now
+ 0 1 * * *  php artisan backup:run --only-db  Next Due: 11 hours from now
+ 0 2 * * *  php artisan backup:clean  Next Due: 12 hours from now
+ 15 3 * * *  php artisan backup:monitor  Next Due: 13 hours from now
+ */5 * * * *  exact:refresh-tokens  Next Due: 40 seconds from now
+ 0 8 * * *  exact:monitor-refresh-tokens  Next Due: 18 hours from now
  0 7 * * *  php artisan dayrates:import-exchange-rate  Next Due: 17 hours from now
- 0 8 * * *  php artisan dayrates:crawl .. Next Due: 18 hours from now
+ 0 8 * * *  php artisan dayrates:crawl  Next Due: 18 hours from now
  0 6 1 * *  php artisan pricing:calculate-monthly-averages  Next Due: 3 weeks from now
  30 2 * * *  php artisan star-schema:sync-dimensions  Next Due: 12 hours from now
  0 3 * * *  php artisan star-schema:aggregate --grain=daily  Next Due: 13 hours from now
  30 3 * * 1  php artisan star-schema:aggregate --grain=weekly  Next Due: 3 days from now
  0 4 1 * *  php artisan star-schema:aggregate --grain=monthly  Next Due: 3 weeks from now
- 30 4 * * *  php artisan star-schema:prune .. Next Due: 14 hours from now
- */5 * * * *  php artisan horizon:snapshot .. Next Due: 4 minutes from now
+ 30 4 * * *  php artisan star-schema:prune  Next Due: 14 hours from now
+ */5 * * * *  php artisan horizon:snapshot  Next Due: 40 seconds from now
 ```
 
 ---
@@ -396,15 +397,11 @@ GET|HEAD / .. filament.app.pages.dashboard > Filament\Pages > Dashboard
     {"name": "id", "type": "bigint", "increments": true, "nullable": false, "default": "nextval('system_admins_id_seq'::regclass)", "unique": true, "fillable": false, "hidden": false, "appended": null, "cast": "int"},
     {"name": "name", "type": "character varying(255)", "increments": false, "nullable": false, "default": null, "unique": false, "fillable": true, "hidden": false, "appended": null, "cast": null},
     {"name": "email", "type": "character varying(255)", "increments": false, "nullable": false, "default": null, "unique": true, "fillable": true, "hidden": false, "appended": null, "cast": null},
-    {"name": "email_verified_at", "type": "timestamp(0) without time zone", "increments": false, "nullable": true, "default": null, "unique": false, "fillable": false, "hidden": false, "appended": null, "cast": "datetime"},
     {"name": "password", "type": "character varying(255)", "increments": false, "nullable": true, "default": null, "unique": false, "fillable": false, "hidden": true, "appended": null, "cast": "hashed"},
     {"name": "is_active", "type": "boolean", "increments": false, "nullable": false, "default": "true", "unique": false, "fillable": true, "hidden": false, "appended": null, "cast": "boolean"},
     {"name": "failed_login_count", "type": "integer", "increments": false, "nullable": false, "default": "0", "unique": false, "fillable": true, "hidden": false, "appended": null, "cast": "integer"},
     {"name": "locked_until", "type": "timestamp(0) without time zone", "increments": false, "nullable": true, "default": null, "unique": false, "fillable": true, "hidden": false, "appended": null, "cast": "datetime"},
-    {"name": "last_failed_login_at", "type": "timestamp(0) without time zone", "increments": false, "nullable": true, "default": null, "unique": false, "fillable": true, "hidden": false, "appended": null, "cast": "datetime"},
-    {"name": "remember_token", "type": "character varying(100)", "increments": false, "nullable": true, "default": null, "unique": false, "fillable": false, "hidden": true, "appended": null, "cast": null},
-    {"name": "created_at", "type": "timestamp(0) without time zone", "increments": false, "nullable": true, "default": null, "unique": false, "fillable": false, "hidden": false, "appended": null, "cast": "datetime"},
-    {"name": "updated_at", "type": "timestamp(0) without time zone", "increments": false, "nullable": true, "default": null, "unique": false, "fillable": false, "hidden": false, "appended": null, "cast": "datetime"}
+    {"name": "last_failed_login_at", "type": "timestamp(0) without time zone", "increments": false, "nullable": true, "default": null, "unique": false, "fillable": true, "hidden": false, "appended": null, "cast": "datetime"}
   ],
   "relations": [
     {"name": "notifications", "type": "MorphMany", "related": "Skylence\\Erp\\Models\\System\\DatabaseNotification"},
@@ -424,40 +421,42 @@ GET|HEAD / .. filament.app.pages.dashboard > Filament\Pages > Dashboard
 }
 ```
 
+*(some attributes truncated for brevity)*
+
 ### Cleaned text mode
 
 ```
- Skylence\Erp\Models\System\Admin ..
- Database .. pgsql
- Table .. system_admins
- Policy .. Skylence\Erp\Policies\AdminPolicy
+ Skylence\Erp\Models\System\Admin
+ Database  pgsql
+ Table  system_admins
+ Policy  Skylence\Erp\Policies\AdminPolicy
 
- Attributes .. type / cast
- id increments, unique .. bigint / int
- name fillable .. character varying(255)
- email unique, fillable .. character varying(255)
- email_verified_at nullable .. timestamp(0) without time zone / datetime
- password nullable, hidden .. character varying(255) / hashed
- is_active fillable .. boolean / boolean
- failed_login_count fillable .. integer / integer
- locked_until nullable, fillable .. timestamp(0) without time zone / datetime
+ Attributes  type / cast
+ id increments, unique  bigint / int
+ name fillable  character varying(255)
+ email unique, fillable  character varying(255)
+ email_verified_at nullable  timestamp(0) without time zone / datetime
+ password nullable, hidden  character varying(255) / hashed
+ is_active fillable  boolean / boolean
+ failed_login_count fillable  integer / integer
+ locked_until nullable, fillable  timestamp(0) without time zone / datetime
  last_failed_login_at nullable, fillable  timestamp(0) without time zone / datetime
- remember_token nullable, hidden .. character varying(100)
- created_at nullable .. timestamp(0) without time zone / datetime
- updated_at nullable .. timestamp(0) without time zone / datetime
+ remember_token nullable, hidden  character varying(100)
+ created_at nullable  timestamp(0) without time zone / datetime
+ updated_at nullable  timestamp(0) without time zone / datetime
 
- Relations ..
- notifications MorphMany .. Skylence\Erp\Models\System\DatabaseNotification
- socialiteUsers HasMany .. Skylence\Erp\Models\System\SocialiteUser
- approverGroups BelongsToMany .. Skylence\Erp\Models\Relations\ApprovalGroup
+ Relations
+ notifications MorphMany  Skylence\Erp\Models\System\DatabaseNotification
+ socialiteUsers HasMany  Skylence\Erp\Models\System\SocialiteUser
+ approverGroups BelongsToMany  Skylence\Erp\Models\Relations\ApprovalGroup
  notificationPreferences MorphMany  Skylence\Erp\Models\System\NotificationPreference
- roles MorphToMany .. Spatie\Permission\Models\Role
- permissions MorphToMany .. Spatie\Permission\Models\Permission
+ roles MorphToMany  Spatie\Permission\Models\Role
+ permissions MorphToMany  Spatie\Permission\Models\Permission
 
- Events ..
+ Events
 
- Observers ..
- deleting .. Closure, Closure
+ Observers
+ deleting  Closure, Closure
 ```
 
 ---
@@ -523,19 +522,19 @@ GET|HEAD / .. filament.app.pages.dashboard > Filament\Pages > Dashboard
 ### Cleaned text mode
 
 ```
- Filament\Events\ServingFilament ..
+ Filament\Events\ServingFilament
  > Closure at: /vendor/filament/filament/src/FilamentServiceProvider.php:119
- Illuminate\Auth\Access\Events\GateEvaluated ..
+ Illuminate\Auth\Access\Events\GateEvaluated
  > Laravel\Telescope\Watchers\GateWatcher@handleGateEvaluated
- Illuminate\Auth\Events\Failed ..
+ Illuminate\Auth\Events\Failed
  > Skylence\Erp\Listeners\RecordFailedLoginAttempt
- Illuminate\Auth\Events\Login ..
+ Illuminate\Auth\Events\Login
  > Skylence\Erp\Listeners\ResetFailedLoginAttempts
- Illuminate\Auth\Events\Registered ..
+ Illuminate\Auth\Events\Registered
  > Illuminate\Auth\Listeners\SendEmailVerificationNotification
- Illuminate\Bus\Events\BatchDispatched ..
+ Illuminate\Bus\Events\BatchDispatched
  > Laravel\Telescope\Watchers\BatchWatcher@recordBatch
- Illuminate\Cache\Events\CacheHit ..
+ Illuminate\Cache\Events\CacheHit
  > Laravel\Telescope\Watchers\CacheWatcher@recordCacheHit
 ```
 
@@ -587,24 +586,24 @@ GET|HEAD / .. filament.app.pages.dashboard > Filament\Pages > Dashboard
 ### Cleaned text mode
 
 ```
-app ..
- name .. Laravel
- env .. local
- debug .. true
- url .. https://btb-filament5-demo.test
- frontend_url .. http://localhost:3000
- asset_url .. null
- timezone .. Europe/Brussels
- locale .. en
- fallback_locale .. en
- faker_locale .. en_US
- cipher .. AES-256-CBC
- key .. base64:...
- previous_keys .. []
- maintenance > driver .. file
- maintenance > store .. database
- providers > 0 .. Illuminate\Auth\AuthServiceProvider
- providers > 1 .. Illuminate\Broadcasting\BroadcastServiceProvider
+app
+ name  Laravel
+ env  local
+ debug  true
+ url  https://btb-filament5-demo.test
+ frontend_url  http://localhost:3000
+ asset_url  null
+ timezone  Europe/Brussels
+ locale  en
+ fallback_locale  en
+ faker_locale  en_US
+ cipher  AES-256-CBC
+ key  base64:...
+ previous_keys  []
+ maintenance > driver  file
+ maintenance > store  database
+ providers > 0  Illuminate\Auth\AuthServiceProvider
+ providers > 1  Illuminate\Broadcasting\BroadcastServiceProvider
 ```
 
 *(truncated for brevity)*

@@ -12,7 +12,7 @@ final class OutputCleaner
         $output = (string) preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $output);
         $output = (string) preg_replace('/\x{FFFD}/u', '', $output);
         $output = (string) preg_replace('/[─━│┌┐└┘├┤┬┴┼▓░▒═║╔╗╚╝╠╣╦╩╬➜▶►⚠✖✔●◆■▪→←↑↓▕⨯✕]+/u', '', $output);
-        $output = (string) preg_replace('/\.{3,}/', '..', $output);
+        $output = (string) preg_replace('/\.{2,}/', '', $output);
         $output = (string) preg_replace('/[ \t]+/', ' ', $output);
 
         return (string) preg_replace('/\n\s*\n/', "\n", $output);
