@@ -18,13 +18,30 @@ final class RouteListParser implements CommandParser
 
         $result = [];
         foreach ($routes as $route) {
-            $result[] = [
+            $entry = [
                 'method' => implode('|', $route->methods()),
                 'uri' => $route->uri(),
                 'name' => $route->getName(),
                 'action' => $route->getActionName(),
                 'middleware' => $router->gatherRouteMiddleware($route),
             ];
+
+            $domain = $route->getDomain();
+            if ($domain !== null) {
+                $entry['domain'] = $domain;
+            }
+
+            $wheres = $route->wheres;
+            if ($wheres !== []) {
+                $entry['wheres'] = $wheres;
+            }
+
+            $excludedMiddleware = $route->excludedMiddleware();
+            if ($excludedMiddleware !== []) {
+                $entry['without_middleware'] = $excludedMiddleware;
+            }
+
+            $result[] = $entry;
         }
 
         return [

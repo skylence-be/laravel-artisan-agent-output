@@ -31,3 +31,53 @@ it('returns total route count', function () {
 
     expect($result['total'])->toBeGreaterThanOrEqual(2);
 });
+
+it('includes where constraints', function () {
+    Route::get('/reports/{type}', fn () => 'ok')
+        ->where('type', 'sales|inventory');
+
+    $parser = new RouteListParser();
+    $result = $parser->parse($this->app);
+
+    $route = collect($result['routes'])->firstWhere('uri', 'reports/{type}');
+    expect($route)->not->toBeNull();
+    expect($route['wheres'])->toBe(['type' => 'sales|inventory']);
+});
+
+it('includes domain when set', function () {
+    Route::domain('{account}.example.com')
+        ->get('/dashboard', fn () => 'ok')
+        ->name('tenant.dashboard');
+
+    $parser = new RouteListParser();
+    $result = $parser->parse($this->app);
+
+    $route = collect($result['routes'])->firstWhere('name', 'tenant.dashboard');
+    expect($route)->not->toBeNull();
+    expect($route['domain'])->toBe('{account}.example.com');
+});
+
+it('excludes domain key when not set', function () {
+    Route::get('/no-domain', fn () => 'ok');
+
+    $parser = new RouteListParser();
+    $result = $parser->parse($this->app);
+
+    $route = collect($result['routes'])->firstWhere('uri', 'no-domain');
+    expect($route)->not->toHaveKey('domain');
+});
+
+it('includes withoutMiddleware exclusions', function () {
+    Route::middleware(['web', 'auth'])->group(function () {
+        Route::get('/public', fn () => 'ok')
+            ->withoutMiddleware('auth')
+            ->name('public.page');
+    });
+
+    $parser = new RouteListParser();
+    $result = $parser->parse($this->app);
+
+    $route = collect($result['routes'])->firstWhere('name', 'public.page');
+    expect($route)->not->toBeNull();
+    expect($route['without_middleware'])->toBe(['auth']);
+});
