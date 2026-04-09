@@ -11,12 +11,13 @@ final class ConfigShowParser implements CommandParser
 {
     public function parse(Application $app): array
     {
-        $argv = $_SERVER['argv'] ?? [];
+        $argv = array_values(array_filter((array) ($_SERVER['argv'] ?? []), 'is_string'));
         $key = null;
 
         foreach ($argv as $i => $arg) {
-            if ($arg === 'config:show' && isset($argv[$i + 1]) && ! str_starts_with((string) $argv[$i + 1], '-')) {
-                $key = $argv[$i + 1];
+            $next = $argv[$i + 1] ?? null;
+            if ($arg === 'config:show' && $next !== null && ! str_starts_with($next, '-')) {
+                $key = $next;
                 break;
             }
         }

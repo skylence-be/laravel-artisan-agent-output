@@ -12,12 +12,13 @@ final class ModelShowParser implements CommandParser
 {
     public function parse(Application $app): array
     {
-        $argv = $_SERVER['argv'] ?? [];
+        $argv = array_values(array_filter((array) ($_SERVER['argv'] ?? []), 'is_string'));
         $model = null;
 
         foreach ($argv as $i => $arg) {
-            if ($arg === 'model:show' && isset($argv[$i + 1]) && ! str_starts_with((string) $argv[$i + 1], '-')) {
-                $model = $argv[$i + 1];
+            $next = $argv[$i + 1] ?? null;
+            if ($arg === 'model:show' && $next !== null && ! str_starts_with($next, '-')) {
+                $model = $next;
                 break;
             }
         }

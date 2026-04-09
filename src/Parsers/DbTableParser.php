@@ -12,12 +12,13 @@ final class DbTableParser implements CommandParser
 {
     public function parse(Application $app): array
     {
-        $argv = $_SERVER['argv'] ?? [];
+        $argv = array_values(array_filter((array) ($_SERVER['argv'] ?? []), 'is_string'));
         $table = null;
 
         foreach ($argv as $i => $arg) {
-            if ($arg === 'db:table' && isset($argv[$i + 1]) && ! str_starts_with((string) $argv[$i + 1], '-')) {
-                $table = $argv[$i + 1];
+            $next = $argv[$i + 1] ?? null;
+            if ($arg === 'db:table' && $next !== null && ! str_starts_with($next, '-')) {
+                $table = $next;
                 break;
             }
         }
@@ -32,8 +33,10 @@ final class DbTableParser implements CommandParser
     /** @return array<string, mixed> */
     public function parseTable(Application $app, string $table): array
     {
+        /** @var \Illuminate\Database\DatabaseManager $manager */
+        $manager = $app->make('db');
         /** @var Connection $connection */
-        $connection = $app->make('db')->connection();
+        $connection = $manager->connection();
         $schema = $connection->getSchemaBuilder();
 
         $columns = array_map(fn (array $col): array => [
@@ -51,6 +54,8 @@ final class DbTableParser implements CommandParser
             'primary' => $idx['primary'],
         ], $schema->getIndexes($table));
 
+        /** @var array<int, array<string, mixed>> $rawForeignKeys */
+        $rawForeignKeys = $schema->getForeignKeys($table);
         $foreignKeys = array_map(fn (array $fk): array => [
             'name' => $fk['name'],
             'columns' => $fk['columns'],
@@ -58,7 +63,7 @@ final class DbTableParser implements CommandParser
             'foreign_columns' => $fk['foreign_columns'],
             'on_update' => $fk['on_update'] ?? null,
             'on_delete' => $fk['on_delete'] ?? null,
-        ], $schema->getForeignKeys($table));
+        ], $rawForeignKeys);
 
         return [
             'table' => $table,

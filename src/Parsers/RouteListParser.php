@@ -18,8 +18,10 @@ final class RouteListParser implements CommandParser
 
         $result = [];
         foreach ($routes as $route) {
+            /** @var list<string> $methods */
+            $methods = $route->methods();
             $entry = [
-                'method' => implode('|', $route->methods()),
+                'method' => implode('|', $methods),
                 'uri' => $route->uri(),
                 'name' => $route->getName(),
                 'action' => $route->getActionName(),

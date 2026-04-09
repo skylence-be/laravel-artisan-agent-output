@@ -25,7 +25,11 @@ final class QueueFailedParser implements CommandParser
 
         $jobs = [];
         foreach ($failed as $job) {
-            $payload = json_decode((string) $job->payload, true);
+            /** @var \stdClass $job */
+            $payloadRaw = $job->payload;
+            $exceptionRaw = $job->exception;
+            $payload = json_decode(is_string($payloadRaw) ? $payloadRaw : '', true);
+            /** @var array<string, mixed> $payload */
 
             $jobs[] = [
                 'id' => $job->id,
@@ -33,7 +37,7 @@ final class QueueFailedParser implements CommandParser
                 'queue' => $job->queue,
                 'class' => $payload['displayName'] ?? 'Unknown',
                 'failed_at' => $job->failed_at,
-                'exception' => mb_substr((string) $job->exception, 0, 500),
+                'exception' => mb_substr(is_string($exceptionRaw) ? $exceptionRaw : '', 0, 500),
             ];
         }
 

@@ -13,8 +13,10 @@ final class DbShowParser implements CommandParser
 {
     public function parse(Application $app): array
     {
+        /** @var \Illuminate\Database\DatabaseManager $manager */
+        $manager = $app->make('db');
         /** @var Connection $connection */
-        $connection = $app->make('db')->connection();
+        $connection = $manager->connection();
         $schema = $connection->getSchemaBuilder();
 
         $tables = array_map(fn (array $table): array => [

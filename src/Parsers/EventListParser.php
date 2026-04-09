@@ -16,13 +16,18 @@ final class EventListParser implements CommandParser
         $rawListeners = $dispatcher->getRawListeners();
 
         $events = [];
+        /** @var array<string, array<int, mixed>> $rawListeners */
         foreach ($rawListeners as $event => $listeners) {
             $resolved = [];
             foreach ($listeners as $listener) {
                 if (is_string($listener)) {
                     $resolved[] = $listener;
                 } elseif (is_array($listener) && count($listener) === 2) {
-                    $resolved[] = (is_object($listener[0]) ? $listener[0]::class : $listener[0]).'@'.$listener[1];
+                    $first = $listener[0];
+                    $second = $listener[1];
+                    $className = is_object($first) ? $first::class : (is_string($first) ? $first : '');
+                    $methodName = is_string($second) ? $second : '';
+                    $resolved[] = $className.'@'.$methodName;
                 } else {
                     $resolved[] = 'Closure';
                 }
