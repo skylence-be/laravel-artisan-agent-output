@@ -34,9 +34,14 @@ it('strips decorative unicode symbols', function () {
     expect(OutputCleaner::clean($input))->toBe(' Passed Failed Warning');
 });
 
-it('collapses three or more dots to two', function () {
+it('strips two or more dots', function () {
     $input = 'Loading..... done';
-    expect(OutputCleaner::clean($input))->toBe('Loading.. done');
+    expect(OutputCleaner::clean($input))->toBe('Loading done');
+});
+
+it('preserves single dots', function () {
+    $input = 'file.php version 1.0';
+    expect(OutputCleaner::clean($input))->toBe('file.php version 1.0');
 });
 
 it('collapses multiple spaces and tabs', function () {
