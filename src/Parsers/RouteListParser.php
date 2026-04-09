@@ -14,7 +14,7 @@ final class RouteListParser implements CommandParser
     {
         /** @var Router $router */
         $router = $app->make(Router::class);
-        $routes = $router->getRoutes();
+        $routes = $router->getRoutes()->getRoutes();
 
         $result = [];
         foreach ($routes as $route) {

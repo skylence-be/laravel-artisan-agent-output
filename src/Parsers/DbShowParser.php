@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Skylence\ArtisanAgentOutput\Parsers;
 
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Database\ConnectionResolverInterface;
+use Illuminate\Database\Connection;
 use Skylence\ArtisanAgentOutput\Contracts\CommandParser;
 use Throwable;
 
@@ -13,9 +13,8 @@ final class DbShowParser implements CommandParser
 {
     public function parse(Application $app): array
     {
-        /** @var ConnectionResolverInterface $connections */
-        $connections = $app->make('db');
-        $connection = $connections->connection();
+        /** @var Connection $connection */
+        $connection = $app->make('db')->connection();
         $schema = $connection->getSchemaBuilder();
 
         $tables = array_map(fn (array $table): array => [
@@ -32,12 +31,10 @@ final class DbShowParser implements CommandParser
             'name' => $connection->getDriverTitle(),
         ];
 
-        if (method_exists($connection, 'getServerVersion')) {
-            try {
-                $platform['server_version'] = $connection->getServerVersion();
-            } catch (Throwable) {
-                // Not available on all connection types
-            }
+        try {
+            $platform['server_version'] = $connection->getServerVersion();
+        } catch (Throwable) {
+            // Not available on all connection types
         }
 
         return [

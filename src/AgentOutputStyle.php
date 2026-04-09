@@ -52,7 +52,10 @@ final class AgentOutputStyle extends OutputStyle
         parent::writeln($this->clean($messages), $type);
     }
 
-    /** @return string|list<string> */
+    /**
+     * @param  string|iterable<string>  $messages
+     * @return string|list<string>
+     */
     private function clean(string|iterable $messages): string|array
     {
         if (is_string($messages)) {

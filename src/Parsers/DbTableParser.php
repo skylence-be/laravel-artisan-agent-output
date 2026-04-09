@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Skylence\ArtisanAgentOutput\Parsers;
 
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Database\ConnectionResolverInterface;
+use Illuminate\Database\Connection;
 use Skylence\ArtisanAgentOutput\Contracts\CommandParser;
 
 final class DbTableParser implements CommandParser
@@ -32,23 +32,23 @@ final class DbTableParser implements CommandParser
     /** @return array<string, mixed> */
     public function parseTable(Application $app, string $table): array
     {
-        /** @var ConnectionResolverInterface $connections */
-        $connections = $app->make('db');
-        $schema = $connections->connection()->getSchemaBuilder();
+        /** @var Connection $connection */
+        $connection = $app->make('db')->connection();
+        $schema = $connection->getSchemaBuilder();
 
         $columns = array_map(fn (array $col): array => [
             'name' => $col['name'],
-            'type' => $col['type_name'] ?? $col['type'],
-            'nullable' => $col['nullable'] ?? false,
-            'default' => $col['default'] ?? null,
-            'auto_increment' => $col['auto_increment'] ?? false,
+            'type' => $col['type_name'],
+            'nullable' => $col['nullable'],
+            'default' => $col['default'],
+            'auto_increment' => $col['auto_increment'],
         ], $schema->getColumns($table));
 
         $indexes = array_map(fn (array $idx): array => [
             'name' => $idx['name'],
             'columns' => $idx['columns'],
-            'unique' => $idx['unique'] ?? false,
-            'primary' => $idx['primary'] ?? false,
+            'unique' => $idx['unique'],
+            'primary' => $idx['primary'],
         ], $schema->getIndexes($table));
 
         $foreignKeys = array_map(fn (array $fk): array => [

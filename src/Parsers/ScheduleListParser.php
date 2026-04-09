@@ -26,7 +26,7 @@ final class ScheduleListParser implements CommandParser
 
             try {
                 $nextRun = (new CronExpression($event->expression))
-                    ->getNextRunDate(Carbon::now()->setTimezone($event->timezone ?? $timezone))
+                    ->getNextRunDate(Carbon::now()->setTimezone($event->timezone ?: $timezone))
                     ->format('Y-m-d H:i:s');
             } catch (Throwable) {
                 // Invalid expression
