@@ -27,7 +27,7 @@ AI coding agents waste tokens on Artisan's decorative output — ANSI colors, bo
 ## Installation
 
 ```bash
-composer require skylence/artisan-agent-output
+composer require skylence/laravel-artisan-agent-output
 ```
 
 Zero config. The package auto-discovers its service provider and activates only when an AI agent is detected (Claude Code, Cursor, Devin, Gemini CLI, etc.). Humans see normal output.

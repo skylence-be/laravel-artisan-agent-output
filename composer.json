@@ -1,5 +1,5 @@
 {
-    "name": "skylence/artisan-agent-output",
+    "name": "skylence/laravel-artisan-agent-output",
     "description": "Agent-optimized output for Laravel Artisan commands",
     "keywords": ["laravel", "artisan", "agent", "ai", "json", "output"],
     "license": "MIT",
