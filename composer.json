@@ -1,0 +1,56 @@
+{
+    "name": "skylence/artisan-agent-output",
+    "description": "Agent-optimized output for Laravel Artisan commands",
+    "keywords": ["laravel", "artisan", "agent", "ai", "json", "output"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonas Van der Haegen",
+            "email": "jonas@skylence.be"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/console": "^12.0 || ^13.0",
+        "illuminate/events": "^12.0 || ^13.0",
+        "illuminate/support": "^12.0 || ^13.0",
+        "shipfastlabs/agent-detector": "^1.1.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.29.0",
+        "orchestra/testbench": "^10.0 || ^11.0",
+        "pestphp/pest": "^3.0 || ^4.0",
+        "phpstan/phpstan": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Skylence\\ArtisanAgentOutput\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Skylence\\ArtisanAgentOutput\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "lint": "pint",
+        "test": "pest",
+        "test:types": "phpstan"
+    }
+}
