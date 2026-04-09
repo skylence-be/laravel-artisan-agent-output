@@ -10,6 +10,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class AgentOutputStyle extends OutputStyle
 {
+    private static bool $muted = false;
+
     public function __construct(InputInterface $input, OutputInterface $output)
     {
         $output->setDecorated(false);
@@ -17,10 +19,24 @@ final class AgentOutputStyle extends OutputStyle
         parent::__construct($input, $output);
     }
 
+    public static function mute(): void
+    {
+        self::$muted = true;
+    }
+
+    public static function unmute(): void
+    {
+        self::$muted = false;
+    }
+
     /** @param string|iterable<string> $messages */
     #[\Override]
     public function write(string|iterable $messages, bool $newline = false, int $options = 0): void
     {
+        if (self::$muted) {
+            return;
+        }
+
         parent::write($this->clean($messages), $newline, $options);
     }
 
@@ -28,6 +44,10 @@ final class AgentOutputStyle extends OutputStyle
     #[\Override]
     public function writeln(string|iterable $messages, int $type = self::OUTPUT_NORMAL): void
     {
+        if (self::$muted) {
+            return;
+        }
+
         parent::writeln($this->clean($messages), $type);
     }
 

@@ -20,7 +20,6 @@ use Skylence\ArtisanAgentOutput\Parsers\ModelShowParser;
 use Skylence\ArtisanAgentOutput\Parsers\QueueFailedParser;
 use Skylence\ArtisanAgentOutput\Parsers\RouteListParser;
 use Skylence\ArtisanAgentOutput\Parsers\ScheduleListParser;
-use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class ServiceProvider extends LaravelServiceProvider
@@ -79,7 +78,7 @@ final class ServiceProvider extends LaravelServiceProvider
 
             if ($this->shouldParseJson($event->command, $registry)) {
                 $this->outputStack[] = $event->output;
-                $event->output = new NullOutput();
+                AgentOutputStyle::mute();
             }
         });
 
@@ -91,6 +90,7 @@ final class ServiceProvider extends LaravelServiceProvider
                 return;
             }
 
+            AgentOutputStyle::unmute();
             $realOutput = array_pop($this->outputStack) ?? $event->output;
 
             try {
@@ -100,7 +100,7 @@ final class ServiceProvider extends LaravelServiceProvider
                 $json = json_encode($result, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
                 $realOutput->writeln($json);
             } catch (\Throwable $e) {
-                $realOutput->writeln("<error>artisan-agent-output: parser failed for {$command}: {$e->getMessage()}</error>");
+                $realOutput->writeln("artisan-agent-output: parser failed for {$command}: {$e->getMessage()}");
                 logger()->warning("artisan-agent-output: parser failed for {$command}", [
                     'error' => $e->getMessage(),
                 ]);
