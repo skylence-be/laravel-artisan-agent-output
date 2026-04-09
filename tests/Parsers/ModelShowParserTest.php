@@ -10,7 +10,7 @@ beforeEach(function () {
 });
 
 it('returns model info as structured data', function () {
-    $parser = new ModelShowParser();
+    $parser = new ModelShowParser;
     $result = $parser->parseModel($this->app, 'Tests\\Fixtures\\Models\\TestItem');
 
     expect($result)->toHaveKeys(['class', 'table', 'attributes', 'relations']);

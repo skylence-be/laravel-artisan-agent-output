@@ -9,7 +9,7 @@ it('returns routes as structured data', function () {
     Route::get('/test-route', fn () => 'ok')->name('test.route');
     Route::post('/test-post', fn () => 'ok');
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toHaveKey('routes');
@@ -26,7 +26,7 @@ it('returns total route count', function () {
     Route::get('/a', fn () => 'ok');
     Route::get('/b', fn () => 'ok');
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     expect($result['total'])->toBeGreaterThanOrEqual(2);
@@ -36,7 +36,7 @@ it('includes where constraints', function () {
     Route::get('/reports/{type}', fn () => 'ok')
         ->where('type', 'sales|inventory');
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     $route = collect($result['routes'])->firstWhere('uri', 'reports/{type}');
@@ -49,7 +49,7 @@ it('includes domain when set', function () {
         ->get('/dashboard', fn () => 'ok')
         ->name('tenant.dashboard');
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     $route = collect($result['routes'])->firstWhere('name', 'tenant.dashboard');
@@ -60,7 +60,7 @@ it('includes domain when set', function () {
 it('excludes domain key when not set', function () {
     Route::get('/no-domain', fn () => 'ok');
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     $route = collect($result['routes'])->firstWhere('uri', 'no-domain');
@@ -74,7 +74,7 @@ it('includes withoutMiddleware exclusions', function () {
             ->name('public.page');
     });
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     $route = collect($result['routes'])->firstWhere('name', 'public.page');

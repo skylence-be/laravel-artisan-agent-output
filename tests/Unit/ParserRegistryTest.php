@@ -6,7 +6,7 @@ use Skylence\ArtisanAgentOutput\Contracts\CommandParser;
 use Skylence\ArtisanAgentOutput\ParserRegistry;
 
 it('registers and retrieves a parser', function () {
-    $registry = new ParserRegistry();
+    $registry = new ParserRegistry;
     $registry->register('about', FakeParser::class);
 
     expect($registry->has('about'))->toBeTrue();
@@ -14,13 +14,13 @@ it('registers and retrieves a parser', function () {
 });
 
 it('returns false for unregistered command', function () {
-    $registry = new ParserRegistry();
+    $registry = new ParserRegistry;
 
     expect($registry->has('about'))->toBeFalse();
 });
 
 it('overwrites parser for same command', function () {
-    $registry = new ParserRegistry();
+    $registry = new ParserRegistry;
     $registry->register('about', FakeParser::class);
     $registry->register('about', AnotherFakeParser::class);
 
@@ -28,7 +28,7 @@ it('overwrites parser for same command', function () {
 });
 
 it('returns all registered commands', function () {
-    $registry = new ParserRegistry();
+    $registry = new ParserRegistry;
     $registry->register('about', FakeParser::class);
     $registry->register('route:list', AnotherFakeParser::class);
 
@@ -37,7 +37,7 @@ it('returns all registered commands', function () {
 
 class FakeParser implements CommandParser
 {
-    public function parse(\Illuminate\Contracts\Foundation\Application $app): array
+    public function parse(Illuminate\Contracts\Foundation\Application $app): array
     {
         return ['test' => true];
     }
@@ -45,7 +45,7 @@ class FakeParser implements CommandParser
 
 class AnotherFakeParser implements CommandParser
 {
-    public function parse(\Illuminate\Contracts\Foundation\Application $app): array
+    public function parse(Illuminate\Contracts\Foundation\Application $app): array
     {
         return ['other' => true];
     }

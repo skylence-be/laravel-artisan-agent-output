@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Skylence\ArtisanAgentOutput\Parsers\EventListParser;
 
 it('returns events as structured data', function () {
-    $parser = new EventListParser();
+    $parser = new EventListParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toHaveKeys(['total', 'events']);
@@ -16,7 +16,7 @@ it('returns events as structured data', function () {
 it('includes registered event listeners', function () {
     Event::listen('test.event', fn () => null);
 
-    $parser = new EventListParser();
+    $parser = new EventListParser;
     $result = $parser->parse($this->app);
 
     $testEvent = collect($result['events'])->firstWhere('event', 'test.event');

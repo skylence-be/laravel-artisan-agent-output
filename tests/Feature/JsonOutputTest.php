@@ -6,7 +6,7 @@ use Skylence\ArtisanAgentOutput\Parsers\MigrateStatusParser;
 use Skylence\ArtisanAgentOutput\Parsers\RouteListParser;
 
 it('produces valid JSON from migrate:status parser', function () {
-    $parser = new MigrateStatusParser();
+    $parser = new MigrateStatusParser;
     $result = $parser->parse($this->app);
 
     $json = json_encode($result, JSON_THROW_ON_ERROR);
@@ -17,9 +17,9 @@ it('produces valid JSON from migrate:status parser', function () {
 });
 
 it('produces valid JSON from route:list parser', function () {
-    \Illuminate\Support\Facades\Route::get('/integration-test', fn () => 'ok');
+    Illuminate\Support\Facades\Route::get('/integration-test', fn () => 'ok');
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     $json = json_encode($result, JSON_THROW_ON_ERROR);

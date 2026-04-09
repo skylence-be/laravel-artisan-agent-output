@@ -7,6 +7,7 @@ namespace Skylence\ArtisanAgentOutput\Parsers;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\ConnectionResolverInterface;
 use Skylence\ArtisanAgentOutput\Contracts\CommandParser;
+use Throwable;
 
 final class DbShowParser implements CommandParser
 {
@@ -34,7 +35,7 @@ final class DbShowParser implements CommandParser
         if (method_exists($connection, 'getServerVersion')) {
             try {
                 $platform['server_version'] = $connection->getServerVersion();
-            } catch (\Throwable) {
+            } catch (Throwable) {
                 // Not available on all connection types
             }
         }

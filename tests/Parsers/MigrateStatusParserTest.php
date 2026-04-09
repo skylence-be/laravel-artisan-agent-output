@@ -10,7 +10,7 @@ beforeEach(function () {
 });
 
 it('returns migration status as structured data', function () {
-    $parser = new MigrateStatusParser();
+    $parser = new MigrateStatusParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toHaveKeys(['total', 'ran', 'pending', 'migrations']);
@@ -21,7 +21,7 @@ it('returns migration status as structured data', function () {
 });
 
 it('reports pending migrations correctly', function () {
-    $parser = new MigrateStatusParser();
+    $parser = new MigrateStatusParser;
     $result = $parser->parse($this->app);
 
     expect($result['pending'])->toBe($result['total']);
@@ -37,7 +37,7 @@ it('reports pending migrations correctly', function () {
 it('reports ran migrations after migrate', function () {
     $this->artisan('migrate', ['--no-interaction' => true]);
 
-    $parser = new MigrateStatusParser();
+    $parser = new MigrateStatusParser;
     $result = $parser->parse($this->app);
 
     expect($result['ran'])->toBeGreaterThan(0);

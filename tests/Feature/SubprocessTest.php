@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Symfony\Component\Process\Process;
 
+uses()->group('subprocess');
+
 /**
  * Helper to run an artisan command as a subprocess with agent detection enabled.
  * Uses the btb-filament5-demo app as test target since it has the package installed.
@@ -49,7 +51,7 @@ it('outputs valid JSON for about command when agent detected', function (): void
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
     $data = json_decode($output, true);
 
     expect($data)->not->toBeNull()
@@ -62,7 +64,7 @@ it('outputs valid JSON for migrate:status when agent detected', function (): voi
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
     $data = json_decode($output, true);
 
     expect($data)->not->toBeNull()
@@ -74,7 +76,7 @@ it('outputs valid JSON for route:list when agent detected', function (): void {
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
     $data = json_decode($output, true);
 
     expect($data)->not->toBeNull()
@@ -87,7 +89,7 @@ it('outputs valid JSON for schedule:list when agent detected', function (): void
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
     $data = json_decode($output, true);
 
     expect($data)->not->toBeNull()
@@ -99,7 +101,7 @@ it('outputs valid JSON for db:show when agent detected', function (): void {
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
     $data = json_decode($output, true);
 
     expect($data)->not->toBeNull()
@@ -111,7 +113,7 @@ it('outputs valid JSON for event:list when agent detected', function (): void {
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
     $data = json_decode($output, true);
 
     expect($data)->not->toBeNull()
@@ -123,7 +125,7 @@ it('outputs valid JSON for queue:failed when agent detected', function (): void 
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
     $data = json_decode($output, true);
 
     expect($data)->not->toBeNull()
@@ -137,7 +139,7 @@ it('outputs cleaned text not JSON when ARTISAN_AGENT_OUTPUT_JSON=false', functio
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
 
     // Should NOT be valid JSON
     $data = json_decode($output, true);
@@ -157,7 +159,7 @@ it('outputs normal decorated text when no agent detected', function (): void {
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
 
     // Should NOT be JSON (normal artisan output)
     $data = json_decode($output, true);
@@ -174,7 +176,7 @@ it('outputs nothing when AGENT_OUTPUT_DISABLE is set', function (): void {
 
     expect($process->isSuccessful())->toBeTrue();
 
-    $output = trim($process->getOutput());
+    $output = mb_trim($process->getOutput());
 
     // Should NOT be JSON — package is disabled, normal output
     $data = json_decode($output, true);

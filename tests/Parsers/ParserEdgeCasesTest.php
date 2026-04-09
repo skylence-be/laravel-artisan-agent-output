@@ -12,7 +12,7 @@ use Skylence\ArtisanAgentOutput\Parsers\ScheduleListParser;
 
 it('MigrateStatusParser handles no migration repository', function () {
     // Fresh SQLite DB with no migrations table
-    $parser = new MigrateStatusParser();
+    $parser = new MigrateStatusParser;
     $result = $parser->parse($this->app);
 
     expect($result['total'])->toBe(0);
@@ -22,7 +22,7 @@ it('MigrateStatusParser handles no migration repository', function () {
 });
 
 it('RouteListParser handles app with zero custom routes', function () {
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toHaveKeys(['total', 'routes']);
@@ -31,7 +31,7 @@ it('RouteListParser handles app with zero custom routes', function () {
 });
 
 it('ScheduleListParser handles empty schedule', function () {
-    $parser = new ScheduleListParser();
+    $parser = new ScheduleListParser;
     $result = $parser->parse($this->app);
 
     expect($result['total'])->toBe(0);
@@ -39,7 +39,7 @@ it('ScheduleListParser handles empty schedule', function () {
 });
 
 it('EventListParser returns valid structure', function () {
-    $parser = new EventListParser();
+    $parser = new EventListParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toHaveKeys(['total', 'events']);
@@ -51,21 +51,21 @@ it('EventListParser returns valid structure', function () {
 });
 
 it('QueueFailedParser handles no failed jobs gracefully', function () {
-    $parser = new QueueFailedParser();
+    $parser = new QueueFailedParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toBe(['total' => 0, 'jobs' => []]);
 });
 
 it('ConfigShowParser returns error when no key in argv', function () {
-    $parser = new ConfigShowParser();
+    $parser = new ConfigShowParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toHaveKey('error');
 });
 
 it('DbTableParser returns error when no table in argv', function () {
-    $parser = new DbTableParser();
+    $parser = new DbTableParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toHaveKey('error');
@@ -73,11 +73,11 @@ it('DbTableParser returns error when no table in argv', function () {
 
 it('all parser JSON output is valid JSON', function () {
     $parsers = [
-        new MigrateStatusParser(),
-        new RouteListParser(),
-        new ScheduleListParser(),
-        new EventListParser(),
-        new QueueFailedParser(),
+        new MigrateStatusParser,
+        new RouteListParser,
+        new ScheduleListParser,
+        new EventListParser,
+        new QueueFailedParser,
     ];
 
     foreach ($parsers as $parser) {
@@ -89,9 +89,9 @@ it('all parser JSON output is valid JSON', function () {
 });
 
 it('RouteListParser omits domain key when no domain set', function () {
-    \Illuminate\Support\Facades\Route::get('/no-domain-test', fn () => 'ok');
+    Illuminate\Support\Facades\Route::get('/no-domain-test', fn () => 'ok');
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     $route = collect($result['routes'])->firstWhere('uri', 'no-domain-test');
@@ -102,13 +102,13 @@ it('RouteListParser omits domain key when no domain set', function () {
 });
 
 it('RouteListParser includes all conditional keys when present', function () {
-    \Illuminate\Support\Facades\Route::domain('{tenant}.test.com')
+    Illuminate\Support\Facades\Route::domain('{tenant}.test.com')
         ->middleware('web')
         ->get('/conditional/{slug}', fn () => 'ok')
         ->where('slug', '[a-z]+')
         ->name('conditional.test');
 
-    $parser = new RouteListParser();
+    $parser = new RouteListParser;
     $result = $parser->parse($this->app);
 
     $route = collect($result['routes'])->firstWhere('name', 'conditional.test');

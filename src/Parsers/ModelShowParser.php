@@ -16,7 +16,7 @@ final class ModelShowParser implements CommandParser
         $model = null;
 
         foreach ($argv as $i => $arg) {
-            if ($arg === 'model:show' && isset($argv[$i + 1]) && ! str_starts_with($argv[$i + 1], '-')) {
+            if ($arg === 'model:show' && isset($argv[$i + 1]) && ! str_starts_with((string) $argv[$i + 1], '-')) {
                 $model = $argv[$i + 1];
                 break;
             }
@@ -36,7 +36,7 @@ final class ModelShowParser implements CommandParser
         $output = Artisan::output();
 
         /** @var array<string, mixed> $data */
-        $data = json_decode(trim($output), true, 512, JSON_THROW_ON_ERROR);
+        $data = json_decode(mb_trim($output), true, 512, JSON_THROW_ON_ERROR);
 
         return $data;
     }

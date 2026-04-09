@@ -6,6 +6,7 @@ namespace Skylence\ArtisanAgentOutput\Parsers;
 
 use Illuminate\Contracts\Foundation\Application;
 use Skylence\ArtisanAgentOutput\Contracts\CommandParser;
+use Throwable;
 
 final class QueueFailedParser implements CommandParser
 {
@@ -15,7 +16,7 @@ final class QueueFailedParser implements CommandParser
             /** @var \Illuminate\Queue\Failed\FailedJobProviderInterface $failer */
             $failer = $app->make('queue.failer');
             $failed = $failer->all();
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return [
                 'total' => 0,
                 'jobs' => [],
@@ -24,7 +25,7 @@ final class QueueFailedParser implements CommandParser
 
         $jobs = [];
         foreach ($failed as $job) {
-            $payload = json_decode($job->payload, true);
+            $payload = json_decode((string) $job->payload, true);
 
             $jobs[] = [
                 'id' => $job->id,
@@ -32,7 +33,7 @@ final class QueueFailedParser implements CommandParser
                 'queue' => $job->queue,
                 'class' => $payload['displayName'] ?? 'Unknown',
                 'failed_at' => $job->failed_at,
-                'exception' => mb_substr($job->exception, 0, 500),
+                'exception' => mb_substr((string) $job->exception, 0, 500),
             ];
         }
 

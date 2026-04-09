@@ -20,7 +20,7 @@ afterEach(function () {
 });
 
 it('returns table schema as structured data', function () {
-    $parser = new DbTableParser();
+    $parser = new DbTableParser;
     $result = $parser->parseTable($this->app, 'parser_test_table');
 
     expect($result)->toHaveKeys(['table', 'columns', 'indexes']);
@@ -31,7 +31,7 @@ it('returns table schema as structured data', function () {
 });
 
 it('includes column details', function () {
-    $parser = new DbTableParser();
+    $parser = new DbTableParser;
     $result = $parser->parseTable($this->app, 'parser_test_table');
 
     $nameCol = collect($result['columns'])->firstWhere('name', 'name');

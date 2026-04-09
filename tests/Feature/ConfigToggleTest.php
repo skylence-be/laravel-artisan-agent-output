@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Skylence\ArtisanAgentOutput\Parsers\MigrateStatusParser;
 use Skylence\ArtisanAgentOutput\ParserRegistry;
+use Skylence\ArtisanAgentOutput\Parsers\MigrateStatusParser;
 
 it('uses json parsers when json config is true', function () {
     config()->set('artisan-agent-output.json', true);
@@ -18,7 +18,7 @@ it('respects json false config by not parsing', function () {
     config()->set('artisan-agent-output.json', false);
 
     // Directly test: parser still works when called manually
-    $parser = new MigrateStatusParser();
+    $parser = new MigrateStatusParser;
     $result = $parser->parse($this->app);
     expect($result)->toHaveKey('total');
 });
