@@ -6,7 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Skylence\ArtisanAgentOutput\Parsers\ScheduleListParser;
 
 it('returns empty schedule when no tasks registered', function () {
-    $parser = new ScheduleListParser();
+    $parser = new ScheduleListParser;
     $result = $parser->parse($this->app);
 
     expect($result)->toHaveKeys(['total', 'tasks']);
@@ -19,7 +19,7 @@ it('returns scheduled tasks as structured data', function () {
     $schedule->command('inspire')->daily();
     $schedule->command('cache:clear')->hourly();
 
-    $parser = new ScheduleListParser();
+    $parser = new ScheduleListParser;
     $result = $parser->parse($this->app);
 
     expect($result['total'])->toBe(2);

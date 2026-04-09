@@ -13,13 +13,13 @@ it('handles very long strings', function () {
     $input = str_repeat("Hello \e[32mWorld\e[0m ", 1000);
     $result = OutputCleaner::clean($input);
     expect($result)->not->toContain("\e[");
-    expect(strlen($result))->toBeLessThan(strlen($input));
+    expect(mb_strlen($result))->toBeLessThan(mb_strlen($input));
 });
 
 it('handles string with only special characters', function () {
     $input = "\e[32m\e[0m┌──┘✔✖⚠";
     $result = OutputCleaner::clean($input);
-    expect(trim($result))->toBe('');
+    expect(mb_trim($result))->toBe('');
 });
 
 it('handles mixed newlines and blank lines', function () {
@@ -36,8 +36,8 @@ it('strips dot separators between label and value', function () {
 });
 
 it('handles unicode in content', function () {
-    $input = "Ünïcödé Tëst Nàme";
-    expect(OutputCleaner::clean($input))->toBe("Ünïcödé Tëst Nàme");
+    $input = 'Ünïcödé Tëst Nàme';
+    expect(OutputCleaner::clean($input))->toBe('Ünïcödé Tëst Nàme');
 });
 
 it('strips ANSI with complex parameters', function () {

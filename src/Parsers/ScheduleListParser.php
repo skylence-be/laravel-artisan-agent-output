@@ -9,6 +9,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Carbon;
 use Skylence\ArtisanAgentOutput\Contracts\CommandParser;
+use Throwable;
 
 final class ScheduleListParser implements CommandParser
 {
@@ -27,7 +28,7 @@ final class ScheduleListParser implements CommandParser
                 $nextRun = (new CronExpression($event->expression))
                     ->getNextRunDate(Carbon::now()->setTimezone($event->timezone ?? $timezone))
                     ->format('Y-m-d H:i:s');
-            } catch (\Throwable) {
+            } catch (Throwable) {
                 // Invalid expression
             }
 

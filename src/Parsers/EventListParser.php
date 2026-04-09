@@ -22,7 +22,7 @@ final class EventListParser implements CommandParser
                 if (is_string($listener)) {
                     $resolved[] = $listener;
                 } elseif (is_array($listener) && count($listener) === 2) {
-                    $resolved[] = (is_object($listener[0]) ? get_class($listener[0]) : $listener[0]).'@'.$listener[1];
+                    $resolved[] = (is_object($listener[0]) ? $listener[0]::class : $listener[0]).'@'.$listener[1];
                 } else {
                     $resolved[] = 'Closure';
                 }

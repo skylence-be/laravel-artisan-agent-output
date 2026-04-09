@@ -1,0 +1,23 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "declare_strict_types": true,
+        "fully_qualified_strict_types": true,
+        "strict_comparison": true,
+        "modernize_types_casting": true,
+        "mb_str_functions": true,
+        "ordered_class_elements": true,
+        "ordered_interfaces": true,
+        "ordered_traits": true,
+        "protected_to_private": true,
+        "self_accessor": true,
+        "no_superfluous_elseif": true,
+        "no_useless_else": true,
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_constants": true,
+            "import_functions": true
+        }
+    },
+    "cache-file": ".pint.cache"
+}

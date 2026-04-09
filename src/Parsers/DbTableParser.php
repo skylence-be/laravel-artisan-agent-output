@@ -16,7 +16,7 @@ final class DbTableParser implements CommandParser
         $table = null;
 
         foreach ($argv as $i => $arg) {
-            if ($arg === 'db:table' && isset($argv[$i + 1]) && ! str_starts_with($argv[$i + 1], '-')) {
+            if ($arg === 'db:table' && isset($argv[$i + 1]) && ! str_starts_with((string) $argv[$i + 1], '-')) {
                 $table = $argv[$i + 1];
                 break;
             }

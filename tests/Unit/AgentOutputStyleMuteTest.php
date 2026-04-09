@@ -11,7 +11,7 @@ afterEach(function () {
 });
 
 it('suppresses output when muted', function () {
-    $buffered = new BufferedOutput();
+    $buffered = new BufferedOutput;
     $style = new AgentOutputStyle(new ArrayInput([]), $buffered);
 
     AgentOutputStyle::mute();
@@ -22,7 +22,7 @@ it('suppresses output when muted', function () {
 });
 
 it('resumes output after unmute', function () {
-    $buffered = new BufferedOutput();
+    $buffered = new BufferedOutput;
     $style = new AgentOutputStyle(new ArrayInput([]), $buffered);
 
     AgentOutputStyle::mute();
@@ -35,7 +35,7 @@ it('resumes output after unmute', function () {
 });
 
 it('mute and unmute are idempotent', function () {
-    $buffered = new BufferedOutput();
+    $buffered = new BufferedOutput;
     $style = new AgentOutputStyle(new ArrayInput([]), $buffered);
 
     AgentOutputStyle::mute();
@@ -47,7 +47,7 @@ it('mute and unmute are idempotent', function () {
 });
 
 it('mute suppresses iterable messages too', function () {
-    $buffered = new BufferedOutput();
+    $buffered = new BufferedOutput;
     $style = new AgentOutputStyle(new ArrayInput([]), $buffered);
 
     AgentOutputStyle::mute();

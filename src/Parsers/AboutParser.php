@@ -17,7 +17,7 @@ final class AboutParser implements CommandParser
         $output = Artisan::output();
 
         /** @var array<string, mixed> $data */
-        $data = json_decode(trim($output), true, 512, JSON_THROW_ON_ERROR);
+        $data = json_decode(mb_trim($output), true, 512, JSON_THROW_ON_ERROR);
 
         return $data;
     }

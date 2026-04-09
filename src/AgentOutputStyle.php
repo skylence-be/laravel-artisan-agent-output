@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Skylence\ArtisanAgentOutput;
 
 use Illuminate\Console\OutputStyle;
+use Override;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -30,7 +31,7 @@ final class AgentOutputStyle extends OutputStyle
     }
 
     /** @param string|iterable<string> $messages */
-    #[\Override]
+    #[Override]
     public function write(string|iterable $messages, bool $newline = false, int $options = 0): void
     {
         if (self::$muted) {
@@ -41,7 +42,7 @@ final class AgentOutputStyle extends OutputStyle
     }
 
     /** @param string|iterable<string> $messages */
-    #[\Override]
+    #[Override]
     public function writeln(string|iterable $messages, int $type = self::OUTPUT_NORMAL): void
     {
         if (self::$muted) {

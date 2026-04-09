@@ -10,6 +10,7 @@ use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Override;
 use Skylence\ArtisanAgentOutput\Parsers\AboutParser;
 use Skylence\ArtisanAgentOutput\Parsers\ConfigShowParser;
 use Skylence\ArtisanAgentOutput\Parsers\DbShowParser;
@@ -21,6 +22,7 @@ use Skylence\ArtisanAgentOutput\Parsers\QueueFailedParser;
 use Skylence\ArtisanAgentOutput\Parsers\RouteListParser;
 use Skylence\ArtisanAgentOutput\Parsers\ScheduleListParser;
 use Symfony\Component\Console\Output\OutputInterface;
+use Throwable;
 
 final class ServiceProvider extends LaravelServiceProvider
 {
@@ -29,6 +31,7 @@ final class ServiceProvider extends LaravelServiceProvider
 
     private bool $parsing = false;
 
+    #[Override]
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/artisan-agent-output.php', 'artisan-agent-output');
@@ -99,7 +102,7 @@ final class ServiceProvider extends LaravelServiceProvider
                 $result = $parser->parse($this->app);
                 $json = json_encode($result, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
                 $realOutput->writeln($json);
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $realOutput->writeln("artisan-agent-output: parser failed for {$command}: {$e->getMessage()}");
                 logger()->warning("artisan-agent-output: parser failed for {$command}", [
                     'error' => $e->getMessage(),

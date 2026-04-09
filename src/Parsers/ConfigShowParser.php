@@ -15,7 +15,7 @@ final class ConfigShowParser implements CommandParser
         $key = null;
 
         foreach ($argv as $i => $arg) {
-            if ($arg === 'config:show' && isset($argv[$i + 1]) && ! str_starts_with($argv[$i + 1], '-')) {
+            if ($arg === 'config:show' && isset($argv[$i + 1]) && ! str_starts_with((string) $argv[$i + 1], '-')) {
                 $key = $argv[$i + 1];
                 break;
             }
