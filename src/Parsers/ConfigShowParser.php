@@ -11,7 +11,7 @@ final class ConfigShowParser implements CommandParser
 {
     public function parse(Application $app): array
     {
-        $argv = array_values(array_filter((array) ($_SERVER['argv'] ?? []), 'is_string'));
+        $argv = array_values(array_filter((array) ($_SERVER['argv'] ?? []), is_string(...)));
         $key = null;
 
         foreach ($argv as $i => $arg) {
