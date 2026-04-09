@@ -12,7 +12,7 @@ final class ModelShowParser implements CommandParser
 {
     public function parse(Application $app): array
     {
-        $argv = array_values(array_filter((array) ($_SERVER['argv'] ?? []), 'is_string'));
+        $argv = array_values(array_filter((array) ($_SERVER['argv'] ?? []), is_string(...)));
         $model = null;
 
         foreach ($argv as $i => $arg) {
