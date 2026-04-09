@@ -20,11 +20,15 @@ use Skylence\ArtisanAgentOutput\Parsers\ModelShowParser;
 use Skylence\ArtisanAgentOutput\Parsers\QueueFailedParser;
 use Skylence\ArtisanAgentOutput\Parsers\RouteListParser;
 use Skylence\ArtisanAgentOutput\Parsers\ScheduleListParser;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class ServiceProvider extends LaravelServiceProvider
 {
-    private ?OutputInterface $realOutput = null;
+    /** @var OutputInterface[] */
+    private array $outputStack = [];
+
+    private bool $parsing = false;
 
     public function register(): void
     {
@@ -48,7 +52,7 @@ final class ServiceProvider extends LaravelServiceProvider
 
         $this->publishes([
             __DIR__.'/../config/artisan-agent-output.php' => config_path('artisan-agent-output.php'),
-        ]);
+        ], 'artisan-agent-output-config');
 
         // Layer 1: Cleaned text for all commands
         $this->app->bind(OutputStyle::class, AgentOutputStyle::class);
@@ -74,7 +78,8 @@ final class ServiceProvider extends LaravelServiceProvider
             $event->output->setDecorated(false);
 
             if ($this->shouldParseJson($event->command, $registry)) {
-                $this->realOutput = $event->output;
+                $this->outputStack[] = $event->output;
+                $event->output = new NullOutput();
             }
         });
 
@@ -86,25 +91,31 @@ final class ServiceProvider extends LaravelServiceProvider
                 return;
             }
 
-            $output = $this->realOutput ?? $event->output;
+            $realOutput = array_pop($this->outputStack) ?? $event->output;
 
             try {
+                $this->parsing = true;
                 $parser = $this->app->make($registry->get($command));
                 $result = $parser->parse($this->app);
                 $json = json_encode($result, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
-                $output->writeln($json);
+                $realOutput->writeln($json);
             } catch (\Throwable $e) {
+                $realOutput->writeln("<error>artisan-agent-output: parser failed for {$command}: {$e->getMessage()}</error>");
                 logger()->warning("artisan-agent-output: parser failed for {$command}", [
                     'error' => $e->getMessage(),
                 ]);
+            } finally {
+                $this->parsing = false;
             }
-
-            $this->realOutput = null;
         });
     }
 
     private function shouldParseJson(?string $command, ParserRegistry $registry): bool
     {
+        if ($this->parsing) {
+            return false;
+        }
+
         if (! $command) {
             return false;
         }
