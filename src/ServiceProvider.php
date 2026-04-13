@@ -10,7 +10,6 @@ use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
-use Override;
 use Skylence\ArtisanAgentOutput\Parsers\AboutParser;
 use Skylence\ArtisanAgentOutput\Parsers\ConfigShowParser;
 use Skylence\ArtisanAgentOutput\Parsers\DbShowParser;
@@ -31,7 +30,6 @@ final class ServiceProvider extends LaravelServiceProvider
 
     private bool $parsing = false;
 
-    #[Override]
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/artisan-agent-output.php', 'artisan-agent-output');
